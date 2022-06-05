@@ -1,4 +1,3 @@
-from ast import Pass
 from flask import Blueprint, render_template, flash, redirect, url_for
 from .models import User
 from . import db

@@ -26,6 +26,16 @@ class Attendee(db.Model):
     event_id = db.Column(db.Integer, db.ForeignKey("event.id"))
 
 
+class Metadata(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+    occupation = db.Column(db.String(255))
+    address = db.Column(db.String(255))
+    occupation = db.Column(db.String(255))
+    birthday = db.Column(db.DateTime(timezone=True), default=func.now())
+    profile_picture_url = db.Column(db.String(255))
+
+
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key = True)
     email = db.Column(db.String(255), unique = True)

@@ -1,2 +1,35 @@
 {% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
 {% import "bootstrap/utils.html" as utils %}
+{% block html_attribs %} lang="en"{% endblock %}
+{% block styles %}
+{{super()}}
+<link rel="stylesheet"
+      href="{{url_for('static', filename='mystyle.css')}}">
+{% endblock %}
+{% block navbar %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link" id="home" href="/">
+                <button className="btn">Home</button>
+            </a>
+            {% if user.is_authenticated %}
+            <a class="nav-item nav-link" id="logout" href="/logout">
+                <button>Logout</button>
+            </a>
+            {% else %}
+            <a class="nav-item nav-link" id="login" href="/login">
+                <button>Login</button>
+            </a>
+            <a class="nav-item nav-link" id="register" href="/register">
+                <button>Register</button>
+            </a>
+            {% endif %}
+        </div>
+    </div>
+</nav>
+{% endblock %}

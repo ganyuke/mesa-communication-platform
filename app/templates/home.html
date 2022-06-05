@@ -1,9 +1,38 @@
 {% extends "base.html" %}
+{% block scripts %}
+<script src="{{url_for('static', filename='index.js')}}"></script>
+{{super()}}
+{% endblock %}
 {% block content %}
-    <h1 align="center">Homepage</h1>
+    <h1 align="center">Home page</h1>
     mozilla firefox is the best
 {% if user.is_authenticated %}
 <h2 align="center">Hello, <b>{{ user.first_name }}</b>.</h2>
-<a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
+<hr>
+<h1 align="center">Threads</h1>
+{{ utils.flashed_messages(dismissible=true) }}
+<div class="container">
+    <ul class="list-group list-group-flush" id="threads">
+        {% for thread in user.threads %}
+        <li class="list-group-item">
+            <button type="button" class="close" onclick="deleteNote({{ thread.id }})">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <b>{{ thread.title }}</b><br>
+            {{ thread.content }}
+        </li>
+        {% endfor %}
+    </ul>
+    <form class="form-signin" method="POST" action="">
+        {{ form.csrf_token() }}
+        <h3 align="center">Unleash your creativity!</h3>
+        {{ form.hidden_tag() }}
+        {{ wtf.form_field(form.title) }}
+        {{ wtf.form_field(form.content) }}
+        <button type="submit" class="btn btn-primary">
+            Add note
+        </button>
+    </form>
+</div>
 {% endif %}
 {% endblock %}

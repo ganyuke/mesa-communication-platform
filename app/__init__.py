@@ -2,6 +2,7 @@ from flask import Flask
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 from os import path, environ
+from flask_bootstrap import Bootstrap
 
 db = SQLAlchemy()
 DB_NAME = "database.sqlite3"
@@ -12,9 +13,12 @@ def create_app():
     app.config['SECRET_KEY'] = environ.get("SECRET_KEY", "dev")
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    Bootstrap(app)
 
     from .views import views
+    from .auth import auth
     app.register_blueprint(views,url_prefix='/')
+    app.register_blueprint(auth,url_prefix='/')
 
     db.init_app(app)
     if not path.exists("app/" + DB_NAME):

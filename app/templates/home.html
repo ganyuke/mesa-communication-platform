@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1 align="center">Homepage</h1>
+    mozilla firefox is the best
+{% if user.is_authenticated %}
+<h2 align="center">Hello, <b>{{ user.first_name }}</b>.</h2>
+<a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
+{% endif %}
+{% endblock %}

@@ -10,21 +10,21 @@ from wtforms.validators import InputRequired, Email, Length, EqualTo
 from markupsafe import Markup
 import json
 
-views = Blueprint('views', __name__)
+views = Blueprint('views', __name__, template_folder="../templatethingy",)
 
 class RegisterThread(FlaskForm):
     title = StringField('Title',validators=[InputRequired(), Length(max=35)])
     content = StringField('Body',validators=[InputRequired(), Length(max=35)])
 
-@views.route("/stuff",methods=['GET','POST'])
+@views.route("/",methods=['GET','POST'])
 def stuff():
     return render_template("stuff.html", user=current_user)
 
-@views.route("/accountsetting.html",methods=['GET','POST'])
+@views.route("/settings",methods=['GET','POST'])
 def accountsetting():
     return render_template("accountsetting.html", user=current_user)
 
-@views.route("/",methods=['GET','POST'])
+@views.route("/home",methods=['GET','POST'])
 def home():
     form = RegisterThread()
     if form.validate_on_submit():

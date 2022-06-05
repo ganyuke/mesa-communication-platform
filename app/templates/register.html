@@ -3,7 +3,7 @@
 {% block title %}Login{% endblock %}
 {% block content %}
     <br>
-    {{ utils.flashed_messages() }}
+    {{ utils.flashed_messages(dismissible=true) }}
     <div class="container">
         <form class="form-signin" method="POST" action="/register">
             {{ form.csrf_token() }}
